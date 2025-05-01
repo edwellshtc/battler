@@ -1,3 +1,4 @@
+#This module contains all the enemies the player can fight against
 from player import Player
 from weapons import Axe, Dagger, Bow
 

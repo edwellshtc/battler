@@ -14,7 +14,7 @@ def battle(character1, character2):
             print(f"{character2.name} is dead! GAME OVER")
             sys.exit(1)
         random.shuffle(character2.weapon)
-        attack(character2, character1) 
+        attack(character2, character1)
         if character1.health <= 0:
             print(f"{character1.name} is dead! GAME OVER")
             sys.exit(1)

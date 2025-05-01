@@ -1,4 +1,4 @@
-
+#This module contains the basic player info and data
 
 class Player:
     def __init__(self, name, health, armour, weapon):
