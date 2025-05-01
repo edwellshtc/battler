@@ -1,5 +1,6 @@
 
-class Player():
+
+class Player:
     def __init__(self, name, health, armour, weapon):
         self.name = name
         self.health = health
@@ -8,6 +9,9 @@ class Player():
 
     def take_damage(self, damage):
         self.health -= damage
+
+
+
 
 
 
