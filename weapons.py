@@ -21,7 +21,7 @@ class Bow(Weapon):
         super().__init__("Bow", 7, 3, [shoot])
         self.num_arrows = num_arrows
 
-    def fire_arrow(self):
+    def shoot_arrow(self):
         pass
 
 

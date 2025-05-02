@@ -13,7 +13,6 @@ def battle(character1, character2):
         if character2.health <= 0:
             print(f"{character2.name} is dead! GAME OVER")
             sys.exit(1)
-        random.shuffle(character2.weapon)
         attack(character2, character1)
         if character1.health <= 0:
             print(f"{character1.name} is dead! GAME OVER")
@@ -22,15 +21,18 @@ def battle(character1, character2):
 
 def attack(attacker, defender):
 
-    # rolling damage between 1 and char strength then taking off defender armour
-    attack_damage = random.randint(1, attacker.weapon[0].damage)
-    print(f"{attacker.name} tries to hit {defender.name} with their {attacker.weapon[0].name} and rolls a {attack_damage}")
+    #randomly choose the computer players weapon
+    if hasattr(attacker, "choose_weapon"):
+        attacker.choose_weapon()
+
+    weapon = attacker.weapon
+    attack_fn = weapon.attack_type[0]
+
+    attack_damage = attack_fn(attacker.name, defender.name, weapon.name, weapon.damage)
 
     #check if defenders armour blocks the blow completely
     if attack_damage - defender.armour <= 0:
-        print(
-            f"{defender.name}'s armour completely blocks the blow!"
-        )
+        print(f"{defender.name}'s armour completely blocks the blow!")
         return
 
     #deal the damage
