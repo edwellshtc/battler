@@ -1,4 +1,6 @@
 from player import Player
+from settings import *
+from attackmenu import create_attack_button
 from battle import *
 from weapons import Axe, Dagger, Bow
 from enemies import Bandit, BanditArcher
@@ -20,15 +22,19 @@ def main():
         player_surface = player_walk[int(player_walk_index)]
 
     pygame.init()  # starting pygame
-    screen = pygame.display.set_mode((1200, 720)) #Screen window size
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT)) #Screen window size
+    action_menu = pygame.Surface((SCREEN_WIDTH,200)) #Action Menu
     pygame.display.set_caption("Battler") #Naming the window
     clock = pygame.time.Clock()
 
+    attack_button = create_attack_button() #Draw the button
+
     background = pygame.image.load('graphics/Battleground2.png').convert()
-    background = pygame.transform.scale(background, (1200, 720))
+    background = pygame.transform.scale(background, (SCREEN_WIDTH, SCREEN_HEIGHT))
 
     player_x_pos = -200
 
+    #Knight walk in animations
     knight_walk_1 = pygame.image.load('graphics/knight_walk_1.png').convert_alpha()
     knight_walk_2 = pygame.image.load('graphics/knight_walk_2.png').convert_alpha()
     knight_walk_3 = pygame.image.load('graphics/knight_walk_3.png').convert_alpha()
@@ -48,6 +54,7 @@ def main():
 
     enemy_x_pos = 900
 
+    #Skeleton walk in animations
     enemy_walk_1 = pygame.image.load('graphics/skel_walk_1.png').convert_alpha()
     enemy_walk_2 = pygame.image.load('graphics/skel_walk_2.png').convert_alpha()
     enemy_walk_3 = pygame.image.load('graphics/skel_walk_3.png').convert_alpha()
@@ -72,7 +79,15 @@ def main():
             if event.type == pygame.QUIT:
                 exit()
 
-        screen.blit(background,(0,0))#Display base surface - the dungeon background
+        # Display base surface - the dungeon background
+        screen.blit(background,(0,0))
+        screen.blit(action_menu, (0,520))
+
+        player1 = Player("Gleddy", 30, 2, Axe())
+        player2 = Bandit()
+
+        if attack_button.draw(screen):
+            battle(player1, player2)
 
         #Create player and move them from left at start
         screen.blit(player_surface,(player_x_pos, 0))
@@ -96,16 +111,8 @@ def main():
 
 
         pygame.display.update()
-        clock.tick(60) #making the loop run 60 times per second (or frames)
-
-
-    # print("****************************************")
-    # print("****  Welcome to the FINAL BATTLE!  ****")
-    # print("****************************************")
-    # player1 = Player("Gleddy", 20, 1, Axe())
-    # player2 = BanditArcher()
-    #
-    # battle(player1, player2)
+        # making the loop run 60 times per second (or frames)
+        clock.tick(60)
 
 
 if __name__ == "__main__":
